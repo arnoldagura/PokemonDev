@@ -18,7 +18,6 @@ const validateRegisterInput = (data) => {
     errors.username = "Username field is required.";
   }
 
-
   if (validator.isEmpty(password)) {
     errors.password = "Password field is required.";
   }

@@ -5,6 +5,7 @@
         type="text"
         aria-label="Search"
         name="Search"
+        placeholder="Name"
         class="form-control mr-2"
         style="line-height: 1.3"
         v-model="searchterm"
@@ -12,10 +13,18 @@
       />
     </div>
     <div class="col-2">
-      <v-select v-model="selectedType" :options="types"></v-select>
+      <v-select
+        v-model="selectedType"
+        :options="types"
+        placeholder="Types"
+      ></v-select>
     </div>
     <div class="col-3">
-      <v-select v-model="selectedRarity" :options="rarities"></v-select>
+      <v-select
+        v-model="selectedRarity"
+        :options="rarities"
+        placeholder="Rarities"
+      ></v-select>
     </div>
     <div class="col-3">
       <v-select
@@ -23,6 +32,7 @@
         label="name"
         :options="sets"
         :reduce="(option) => option.id"
+        placeholder="Sets"
       ></v-select>
     </div>
 

@@ -5,9 +5,11 @@
         <div class="col-sm-12 col-md-8 col-lg-6">
           <div class="card">
             <div class="card-header text-center">
-            <img alt="Pokemon logo"
-          src="../assets/pokemon-logo.png"
-          style="height: 40px"/>
+              <img
+                alt="Pokemon logo"
+                src="../assets/pokemon-logo.png"
+                style="height: 40px"
+              />
             </div>
             <div class="card-body">
               <form novalidate @submit.prevent="loginUser">
