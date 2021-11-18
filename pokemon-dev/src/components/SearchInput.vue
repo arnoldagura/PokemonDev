@@ -55,6 +55,7 @@ import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+//use Bootstrap Icons
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 
 Vue.use(BootstrapVue);
@@ -64,10 +65,7 @@ Vue.component("v-select", vSelect);
 export default {
   data() {
     return {
-      name: "",
       searchterm: "",
-      searchPokemon: "https://api.pokemontcg.io/v1/cards?name=",
-      pageSize: 1,
       selectedSet: null,
       selectedType: null,
       selectedRarity: null,
@@ -82,24 +80,28 @@ export default {
     this.getSets();
   },
   methods: {
+    //get Pokemon Types
     getTypes() {
       Vue.axios.get(`https://api.pokemontcg.io/v2/types`).then((resp) => {
         console.warn(resp);
         this.types = resp.data.data;
       });
     },
+    //get Pokemon Rarities
     getRarities() {
       Vue.axios.get(`https://api.pokemontcg.io/v2/rarities`).then((resp) => {
         console.warn(resp);
         this.rarities = resp.data.data;
       });
     },
+    //get Pokemon Sets
     getSets() {
       Vue.axios.get(`https://api.pokemontcg.io/v2/sets`).then((resp) => {
         console.warn(resp);
         this.sets = resp.data.data;
       });
     },
+    //set filters for searching pokemon passing it to the Pokemon List Component
     getFilter() {
       const searchUrl = `${
         this.searchterm != "" ? `&name=${this.searchterm}` : ""
