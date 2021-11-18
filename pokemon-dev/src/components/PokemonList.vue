@@ -2,47 +2,50 @@
 <template>
   <div class="pokemon-list">
     <search-input @searching="filters = $event"></search-input>
-    <table class="table mt-3">
-      <tr class="font-weight-bold">
-        <td class="text-center">Card</td>
-        <td>Name</td>
-        <td>Type</td>
-        <td>Rarity</td>
-        <td>Set</td>
-      </tr>
-
-      <tr v-for="pokemon in pokemons" :key="pokemon.id">
-        <td class="text-center">
-          <img
-            slot="image"
-            :src="pokemon.imageUrl"
-            :alt="pokemon.name"
-            class="w-50"
-          />
-        </td>
-        <td class="align-middle">
-          {{ pokemon.name }}
-        </td>
-        <td class="align-middle">
-          <span v-for="(type, index) in pokemon.types" :key="type">
-            <span>{{ type }}</span>
-            <span v-if="index + 1 < pokemon.types.length">, </span>
-          </span>
-        </td>
-        <td class="align-middle">{{ pokemon.rarity }}</td>
-        <td class="align-middle">{{ pokemon.set }}</td>
-      </tr>
-    </table>
+    <b-overlay :show="isLoading" rounded="sm">
+      <table class="table mt-3">
+        <tr class="font-weight-bold">
+          <td class="text-center">Card</td>
+          <td>Name</td>
+          <td>Type</td>
+          <td>Rarity</td>
+          <td>Set</td>
+        </tr>
+        <tr v-for="pokemon in pokemons" :key="pokemon.id">
+          <td class="text-center">
+            <img
+              slot="image"
+              :src="pokemon.imageUrl"
+              :alt="pokemon.name"
+              class="w-50"
+            />
+          </td>
+          <td class="align-middle">
+            {{ pokemon.name }}
+          </td>
+          <td class="align-middle">
+            <span v-for="(type, index) in pokemon.types" :key="type">
+              <span>{{ type }}</span>
+              <span v-if="index + 1 < pokemon.types.length">, </span>
+            </span>
+          </td>
+          <td class="align-middle">{{ pokemon.rarity }}</td>
+          <td class="align-middle">{{ pokemon.set }}</td>
+        </tr>
+      </table>
+    </b-overlay>
     <b-pagination
       v-model="currentPage"
       :total-rows="totalCount"
       :per-page="pageSize"
       aria-controls="my-table"
+      align="center"
     ></b-pagination>
   </div>
 </template>
 
 <script>
+// Import component
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
@@ -68,10 +71,13 @@ export default {
       pageSize: 20,
       totalCount: 0,
       filters: "",
+      isLoading: false,
+      fullPage: true,
     };
   },
   methods: {
     getPokemons() {
+      this.isLoading = true;
       Vue.axios
         .get(
           `${this.url}?page=${this.currentPage}&pageSize=${this.pageSize}${this.filters}&orderBy=name,-number`
@@ -81,6 +87,7 @@ export default {
           this.pageSize = resp.headers["page-size"];
           this.totalCount = resp.headers["total-count"];
           this.pokemons = resp.data.cards;
+          this.isLoading = false;
         });
     },
     onPageClick(event) {
