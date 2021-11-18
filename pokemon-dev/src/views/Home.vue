@@ -1,7 +1,9 @@
 <template>
   <div class="home text-center mt-5">
-    <img src="@/assets/logo.png" alt="" />
-    <h1>( Pokemon )</h1>
+    <img
+      alt="Pokemon logo"
+      src="../assets/pokemon-logo.png"
+    />
   </div>
 </template>
 

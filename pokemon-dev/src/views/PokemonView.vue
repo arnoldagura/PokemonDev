@@ -1,7 +1,6 @@
 <template>
   <div class="pokemon-list">
     <pokemon-list> </pokemon-list>
-    <search-input @searching="filter = $event"></search-input>
   </div>
 </template>
 
@@ -17,21 +16,12 @@ export default {
     return {
       user: "",
       users: [],
-      url: "https://api.pokemontcg.io/v1/cards",
-      modalOpen: false,
-      pokemonData: {},
-      currentPage: 1,
-      perPage: 20,
-      filter: "",
     };
   },
   methods: {
     thePokemon(pokemon) {
       this.modalOpen = true;
       this.pokemonData = pokemon;
-    },
-    onPageClick(event) {
-      this.currentPage = event;
     },
   },
   mounted() {

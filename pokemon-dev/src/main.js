@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-
+// set admin user add it in users list in localstorage
 if (localStorage.users === undefined) {
   let users = [
     {
@@ -13,7 +13,7 @@ if (localStorage.users === undefined) {
 }
 
 Vue.config.productionTip = false;
-
+//set route
 new Vue({
   router,
   render: (h) => h(App),
